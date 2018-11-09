@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,16 +30,16 @@ class TestCreateUser {
   @Test
   final void testCreateUser() {
 
-    final List<Map<String, Object>> userAddresses = new ArrayList<>();
+    final List<Map<String, String>> userAddresses = new ArrayList<>();
 
-    final Map<String, Object> shippingAddress = new HashMap<>();
+    final Map<String, String> shippingAddress = new HashMap<>();
     shippingAddress.put("city", "Vancouver");
     shippingAddress.put("country", "Canada");
     shippingAddress.put("streetName", "123 Street name");
     shippingAddress.put("postalCode", "123456");
     shippingAddress.put("type", "shipping");
 
-    final Map<String, Object> billingAddress = new HashMap<>();
+    final Map<String, String> billingAddress = new HashMap<>();
     billingAddress.put("city", "Vancouver");
     billingAddress.put("country", "Canada");
     billingAddress.put("streetName", "123 Street name");
@@ -62,7 +63,7 @@ class TestCreateUser {
           .when()
           .post(CONTEXT_PATH + "/users")
           .then()
-          .statusCode(200)
+          .statusCode(HttpStatus.SC_OK)
           .contentType("application/json")
           .extract()
           .response();
